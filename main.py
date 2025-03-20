@@ -2,11 +2,6 @@ import os
 import time
 import board
 import adafruit_dht
-from luma.core.interface.serial import i2c, spi, pcf8574
-from luma.core.interface.parallel import bitbang_6800
-from luma.core.render import canvas
-from luma.oled.device import ssd1306, ssd1309, ssd1325, ssd1331, sh1106, sh1107, ws0010
-
 
 from dotenv import load_dotenv
 
@@ -17,20 +12,11 @@ DHT1ime = os.getenv('DHT1ime')
 DHT2pin = os.getenv('DHT2') 
 DHT2ime = os.getenv('DHT2ime')
 
-SDApin = os.getenv('SDA') 
-SCLpin = os.getenv('SCL')
-
 dht1_pin = getattr(board, DHT1pin)
 dht2_pin = getattr(board, DHT2pin)
-sda_pin = getattr(board, SDApin)
-scl_pin = getattr(board, SCLpin)
-
 
 DHT1 = adafruit_dht.DHT11(board.D5)
 DHT2 = adafruit_dht.DHT11(board.D6)
-
-serial = i2c(port=1, address=0x3C)
-device = ssd1306(serial)
 
 
 class Sensors:
@@ -52,9 +38,5 @@ sensors = [Sensors(DHT1ime, DHT1), Sensors(DHT2ime, DHT2)]
 for s in sensors:
     temperatura(s)
     s.pot.exit()
-
-with canvas(device) as draw:
-    draw.rectangle(device.bounding_box, outline="white", fill="black")
-    draw.text((30, 40), "Hello World", fill="white")
 
 #time.sleep(3.0)
