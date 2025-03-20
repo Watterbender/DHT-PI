@@ -1,12 +1,13 @@
 import os
-import time
 import board
-import adafruit_dht
 from luma.core.interface.serial import i2c, spi, pcf8574
 from luma.core.interface.parallel import bitbang_6800
 from luma.core.render import canvas
 from luma.oled.device import ssd1306, ssd1309, ssd1325, ssd1331, sh1106, sh1107, ws0010
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SDApin = os.getenv('SDA') 
 SCLpin = os.getenv('SCL')
