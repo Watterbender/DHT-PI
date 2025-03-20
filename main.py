@@ -31,6 +31,7 @@ sensors = [Sensors("petka", DHT1), Sensors("sestka", DHT2)]
 
 for s in sensors:
     temperatura(s)
+    s.pot.exit()
     time.sleep(2)
 
 
