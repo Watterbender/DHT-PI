@@ -13,26 +13,33 @@ load_dotenv()
 DHT1 = adafruit_dht.DHT11(board.D5)
 DHT2 = adafruit_dht.DHT11(board.D6)
 
-def temperatura(DHT):
+class Sensors:
+    def __init__(self, ime, pot):
+        self.ime = ime
+        self.pot = pot
+
+def temperatura(sensor):
     try:
-        temperatura1 = DHT.temperature
-        print("Temperatura={0:0.1f}ºC".format(temperatura1))
+        temperatura1 = sensor.pot.temperature
+        print(f"{sensor.ime}: Temperatura = {temperatura1:0.1f}ºC")
 
     except RuntimeError as err:
-        print(err.args[0])
-        #time.sleep(2.0)
-        #continue
+        print(f"{sensor.ime}: {err.args[0]}")
 
     except Exception as err:
-        print("Velika napaka")
-        DHT1.exit()
+        print(f"{sensor.ime}: Velika napaka")
+        sensor.pot.exit()
         raise err
 
 
-#Majmune
+#Majmune source env/bin/activate
 
-temperatura(DHT1)
-temperatura(DHT2)
+
+sensors = [Sensors("petka", DHT1), Sensors("sestka", DHT2)]
+
+for s in sensors:
+    temperatura(s)
+
 
 
 #time.sleep(3.0)
