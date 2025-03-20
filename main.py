@@ -19,17 +19,9 @@ class Sensors:
         self.pot = pot
 
 def temperatura(sensor):
-    try:
-        temperatura1 = sensor.pot.temperature
-        print(f"{sensor.ime}: Temperatura = {temperatura1:0.1f}ºC")
+    temperatura1 = sensor.pot.temperature
+    print(f"{sensor.ime}: Temperatura = {temperatura1:0.1f}ºC")
 
-    except RuntimeError as err:
-        print(f"{sensor.ime}: {err.args[0]}")
-
-    except Exception as err:
-        print(f"{sensor.ime}: Velika napaka")
-        sensor.pot.exit()
-        raise err
 
 
 #Majmune source env/bin/activate
