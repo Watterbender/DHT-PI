@@ -29,6 +29,9 @@ scl_pin = getattr(board, SCLpin)
 DHT1 = adafruit_dht.DHT11(board.D5)
 DHT2 = adafruit_dht.DHT11(board.D6)
 
+serial = i2c(port=1, address=0x3C)
+device = ssd1306(serial)
+
 
 class Sensors:
     def __init__(self, ime, pot):
@@ -50,6 +53,8 @@ for s in sensors:
     temperatura(s)
     s.pot.exit()
 
-
+with canvas(device) as draw:
+    draw.rectangle(device.bounding_box, outline="white", fill="black")
+    draw.text((30, 40), "Hello World", fill="white")
 
 #time.sleep(3.0)
