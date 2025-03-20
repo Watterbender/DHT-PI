@@ -7,8 +7,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-#DHT1 = os.getenv('DHT1')
-#DHT2 = os.getenv('DHT2')
+DHT1pin = os.getenv('DHT1') 
+DHT1ime = os.getenv('DHT1ime')
+DHT2pin = os.getenv('DHT2') 
+DHT2ime = os.getenv('DHT2ime')
+
+dht1_pin = getattr(board, DHT1pin)
+dht2_pin = getattr(board, DHT2pin)
+
 
 DHT1 = adafruit_dht.DHT11(board.D5)
 DHT2 = adafruit_dht.DHT11(board.D6)
@@ -27,12 +33,11 @@ def temperatura(sensor):
 #Majmune source env/bin/activate
 
 
-sensors = [Sensors("petka", DHT1), Sensors("sestka", DHT2)]
+sensors = [Sensors(DHT1ime, DHT1), Sensors(DHT2ime, DHT2)]
 
 for s in sensors:
     temperatura(s)
     s.pot.exit()
-    time.sleep(2)
 
 
 
